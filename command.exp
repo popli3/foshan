@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+set host [lindex $argv 0]
+set password "wdit@123"
+
+spawn ssh foshan@$host "sed -i "1s/$/&\ `hostname`/" /etc/hosts"
+expect {
+      "(yes/no)?" {send "yes\n"; exp_continue}
+      "password:" {send "$password\n"}
+}
+expect eof
+
